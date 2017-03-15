@@ -3,16 +3,23 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Template("default/index.html.twig")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-//        return $this->redirect($this->generateUrl('fos_user_security_login'));
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:User')->findAll();
+
+        return array(
+            'entities' => $entities,
+        );
     }
 }

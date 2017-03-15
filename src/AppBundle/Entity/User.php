@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -23,12 +24,13 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=30, nullable=false)
+     * @Assert\Regex(pattern="/^[a-z A-Z á-ú Á-Ú]+$/", match=true, message="Only letters please")
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/^[a-z A-Z á-ú Á-Ú]+$/", match=true, message="Only letters please")
      * @ORM\Column(name="lastname", type="string", length=30, nullable=false)
      */
     private $lastname;
