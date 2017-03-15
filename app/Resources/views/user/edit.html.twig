@@ -1,21 +1,44 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function (){
+            $("input").addClass('form-control');
+            $("form ul").addClass('alert alert-danger');
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
-    <h1>User edit</h1>
+    <div class="row">
+        <div class="col-lg-8">
+            <a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-user"></i> Logout</a>
+            <h1 class="page-header">
+                <i class="fa fa-ambulance "></i> Users edit
+            </h1>
+        </div>
+    </div>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-4">
+            {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+                <input type="submit" value="Edit" class="btn btn-info" style="margin-top: 20px; margin-bottom: 20px;"/>
+            <a href="{{ path('homepage') }}" class="btn btn-primary" >Back to the list</a>
+            {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            {#<ul style="list-style: none; float:left;">#}
+                {#<li>#}
+                    {#<a href="{{ path('homepage') }}" class="btn btn-primary" >Back to the list</a>#}
+                {#</li>#}
+                {#<li>#}
+                    {#{{ form_start(delete_form) }}#}
+                        {#<input type="submit" value="Delete" class="btn btn-danger">#}
+                    {#{{ form_end(delete_form) }}#}
+                {#</li>#}
+            {#</ul>#}
+        </div>
+
+    </div>
 {% endblock %}

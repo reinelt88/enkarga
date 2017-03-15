@@ -21,7 +21,11 @@
     <![endif]-->
 </head>
 <body>
-{% block body %}{% endblock %}
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+
+
 {% block javascripts %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>

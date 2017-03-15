@@ -2,6 +2,9 @@
 
 {% block javascripts %}
 	{{ parent() }}
+	<!-- DataTables JavaScript -->
+	<script src="{{ asset('media/bower_components/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('media/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
 	<script>
 		$(document).ready(function () {
 			$('#dataTables-example').DataTable({
@@ -11,11 +14,19 @@
 	</script>
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<!-- DataTables CSS -->
+	<link href="{{ asset('media/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css') }}" rel="stylesheet">
+	<!-- DataTables Responsive CSS -->
+	<link href="{{ asset('media/bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-<div class="row">
 	<div class="col-lg-8">
+		<a href="{{ path('fos_user_security_logout') }}"><i class="glyphicon glyphicon-user"></i> Logout</a>
 		<h1 class="page-header">
-			<i class="fa fa-ambulance "></i> Users
+			 <i class="fa fa-ambulance "></i> Users
 		</h1>
 	</div>
 	<div class="row">
@@ -32,22 +43,39 @@
 								<thead>
 								<tr>
 									<th>Id</th>
-									<th>Nombre</th>
-									<th>Total de Camas</th>
-									<th>Disponibles</th>
-									<th>No Disponibles</th>
+									<th>Name</th>
+									<th>Lastname</th>
+									<th>Postalcode</th>
+									<th>Entity</th>
+									<th>City</th>
+									<th>Settlement</th>
+									<th>Street</th>
+									<th>Number</th>
+									<th>Actions</th>
 								</tr>
 								</thead>
 								<tbody>
-								{% for entity in entities %}
+								{% for user in entities %}
 									<tr>
+										<td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+										<td>{{ user.name }}</td>
+										<td>{{ user.lastname }}</td>
+										<td>{{ user.postalCode }}</td>
+										<td>{{ user.entity }}</td>
+										<td>{{ user.city }}</td>
+										<td>{{ user.settlement }}</td>
+										<td>{{ user.street }}</td>
+										<td>{{ user.number }}</td>
 										<td>
-											<a href="{{ path('id', { 'id': entity.idSala }) }}">{{ entity.idSala }}</a>
+											<ul>
+												<li>
+													<a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
+												</li>
+												<li>
+													<a href="{{ path('user_delete', { 'id': user.id }) }}">delete</a>
+												</li>
+											</ul>
 										</td>
-										<td>{{ entity.nombre }}</td>
-										<td>{{ entity.nombre }}</td>
-										<td>{{ entity.nombre }}</td>
-										<td>{{ entity.nombre }}</td>
 									</tr>
 								{% endfor %}
 								</tbody>
